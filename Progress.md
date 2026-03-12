@@ -9,3 +9,6 @@ Learnt and made first gsap animation of a box. Opacity , scale , usegsap , repea
 
 Today we learn the diff. bw gsap.to , gsap.from , gsap.fromto methods. 
 We used timeline method and by the use of timeline we can change the timeline of animations of different elements.
+
+## Day 3
+
