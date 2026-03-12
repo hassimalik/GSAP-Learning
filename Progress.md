@@ -12,3 +12,4 @@ We used timeline method and by the use of timeline we can change the timeline of
 
 ## Day 3
 
+Learnt how to make text animations used in professional websites.
