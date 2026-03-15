@@ -5,43 +5,38 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 
 export default function CardAnimation() {
+    // Setting Refs for gsap
     const cardRef = useRef<HTMLDivElement>(null);
     const tagRef = useRef<HTMLSpanElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const descRef = useRef<HTMLParagraphElement>(null);
-
+    //selecting all refs and making initial state of animation
     useGSAP(() => {
-        // Step 1: Set starting state (invisible + offset)
-        gsap.set([tagRef.current, titleRef.current, descRef.current], {
+        gsap.set([titleRef.current, descRef.current, tagRef.current], {
             opacity: 0,
-            y: 20,
-        });
-
-        // Step 2: Animate to final state using timeline
+            y: 20
+        })
+        //making timeline
         const tl = gsap.timeline({
-            repeat: -1,
-        });
-
+            repeat: -1
+        })
         tl.to(tagRef.current, {
             opacity: 1,
             y: 0,
-            rotation: 180,
-            duration: 0.6,
         })
             .to(titleRef.current, {
                 opacity: 1,
-                y: 0,
                 duration: 0.5,
-                delay: 0.1,
+                y: 0,
+                ease: "power2.out"
             })
             .to(descRef.current, {
                 opacity: 1,
+                ease: "power2.out",
                 y: 0,
                 duration: 0.5,
-                delay: 0.1,
-            });
-
-    }, { scope: cardRef }); // scope is correct ✅
+            })
+    }, { scope: cardRef })
 
     return (
         <div ref={cardRef} className="bg-white rounded-2xl mb-6 p-6 shadow-md w-72">
@@ -57,3 +52,5 @@ export default function CardAnimation() {
         </div>
     );
 }
+
+
