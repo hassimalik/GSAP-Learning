@@ -1,6 +1,7 @@
 import FirstAnimation from "@/components/Day-01/FirstAnimation";
 import SecondAnimation from "@/components/Day-02/SecondAnimation";
 import CardAnimation from "@/components/Day-03/CardAnimation";
+import ShowCaseAnimations from "@/components/Day-04/ShowCaseAnimation";
 
 export default function Playground(){
     return <div className="min-w-full min-h-full  flex flex-col gap-10 items-center flex-wrap">
@@ -9,5 +10,6 @@ export default function Playground(){
         <SecondAnimation/>
         <br />
         <CardAnimation/>
+        <ShowCaseAnimations/>
     </div>
 }
