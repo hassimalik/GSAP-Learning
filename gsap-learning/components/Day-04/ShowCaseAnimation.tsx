@@ -1,57 +1,95 @@
 "use client"
+import { useRef } from "react"
+import Image from "next/image"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
 
-import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap'
+const projects = [
+    {
+        id: 1,
+        name: "Student LMS by H Developer",
+        image: "/projects/lms.png",
+        technologies: ["React", "Tailwind", "Shadcn", "GSAP"],
+    },
+    {
+        id: 2,
+        name: "Portfolio Website",
+        image: "/projects/portfolio.png",
+        technologies: ["Next.js", "GSAP", "Tailwind"],
+    },
+    {
+        id: 3,
+        name: "E-Commerce Store",
+        image: "/projects/ecommerce.png",
+        technologies: ["Next.js", "Stripe", "MongoDB"],
+    }
+]
 
-export default function BusinessCard() {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLDivElement>(null);
-    const skillRef = useRef<HTMLDivElement>(null);
-    const contactRef = useRef<HTMLDivElement>(null);
-
+export default function ShowCaseAnimations() {
+    const containerRef = useRef<HTMLDivElement>(null)
 
     useGSAP(() => {
-        gsap.set([titleRef.current, skillRef.current, contactRef.current], {
-            opacity: 0,
-            y: 20
-        })
+    gsap.from(".project-title", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: "power2.out",
+        repeat: -1        // ✅ loops forever
+    })
 
-        const tl = gsap.timeline({
-            repeat:-1
-        }
-        );
-        tl.to(titleRef.current, {
-            opacity: 1,
-            y: 0,
-            ease: "power2.out",
-            duration: 0.5
-        })
-            .to(skillRef.current, {
-                opacity: 1,
-                y: 0,
-                ease: "power2.out",
-            })
-            .to(contactRef.current, {
-                opacity: 1,
-                y: 0,
-                ease: "power2.out",
-            })
-    }, { scope: cardRef })
+    gsap.from(".project-card", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power2.out",
+        stagger: { each: 0.2, },
+        repeat: -1     // ✅ loops forever
+    })
+
+    gsap.from(".tech-tag", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        ease: "back.out(1.7)",
+        stagger: { each: 0.08, },
+        repeat: -1        // ✅ loops forever
+    })
+
+}, { scope: containerRef })
 
     return (
-        <div ref={cardRef} className="w-96 mb-12 h-48 bg-[#091929] rounded-xl p-5 flex flex-col justify-between">
-            <div className="flex flex-col gap-1 text-left leading-none">
-                <h1 ref={titleRef} className="text-white text-4xl font-bold font-poppins">
-                    Hassaan
-                </h1>
-                <p ref={skillRef} className="text-gray-300  text-sm font-normal font-inter text-[14px]">
-                    Frontend Developer
-                </p>
+        <div ref={containerRef} className="min-h-screen bg-zinc-950 p-10">
+            <h1 className="project-title text-white text-4xl font-bold mb-10">
+                My Projects
+            </h1>
+            <div className="flex gap-12 items-center flex-wrap">
+                {projects.map((project) => (
+                    <div key={project.id} className="project-card bg-zinc-900 rounded-2xl p-6 flex flex-col gap-4 w-72">
+                        <div className="w-full h-48 bg-zinc-800 rounded-xl overflow-hidden">
+                            <Image
+                                src={project.image}
+                                alt={project.name}
+                                width={400}
+                                height={192}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <h2 className="project-name text-white text-xl font-semibold">
+                            {project.name}
+                        </h2>
+                        <div className="flex flex-wrap gap-2">
+                            {project.technologies.map((tech) => (
+                                <span
+                                    key={tech}
+                                    className="tech-tag text-xs bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full border border-zinc-700"
+                                >
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
-            <p ref={contactRef} className="text-gray-300 text-xs font-normal font-inter text-right">
-                hassaan@gmail.com
-            </p>
         </div>
-    );
+    )
 }
